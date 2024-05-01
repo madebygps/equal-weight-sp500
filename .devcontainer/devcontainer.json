@@ -6,6 +6,14 @@
 	"image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
 	"features": {
 		"ghcr.io/devcontainers/features/azure-cli:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GitHub.copilot",
+				"ms-python.python"
+			]
+		}
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.

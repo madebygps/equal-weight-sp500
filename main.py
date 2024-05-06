@@ -3,7 +3,6 @@ import datetime
 import os
 from zoneinfo import ZoneInfo
 import requests
-
     
 import alpaca
 from alpaca.data.live.stock import *
@@ -60,3 +59,6 @@ for ticker in tickers:
     container.upsert_item(new_stock)
     print(close_price)
     
+    # todo
+    # 1. refresh db every 24 hours.
+    # create api that you provide $ and it tells you how much stock to buy of each

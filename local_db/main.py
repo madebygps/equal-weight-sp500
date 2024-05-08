@@ -2,7 +2,6 @@ import csv
 import datetime
 import os
 from zoneinfo import ZoneInfo
-import requests
     
 import alpaca
 from alpaca.data.live.stock import *
@@ -57,7 +56,7 @@ for ticker in tickers:
         'close_price': close_price
     }
     container.upsert_item(new_stock)
-    print(close_price)
+    print(f"{ticker}: {close_price}")
     
     # todo
     # 1. refresh db every 24 hours.

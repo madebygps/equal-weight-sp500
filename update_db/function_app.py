@@ -17,6 +17,7 @@ from alpaca.trading.enums import *
 from alpaca.common.exceptions import APIError
 from dotenv import load_dotenv
 from azure.cosmos import CosmosClient
+from azure.storage.blob import BlobServiceClient
 
 
 app = func.FunctionApp()
@@ -40,5 +41,18 @@ container = database.get_container_client(os.getenv("COSMOS_DB_CONTAINER"))
 def UpdateDb(myTimer: func.TimerRequest) -> None:
     if myTimer.past_due:
         logging.info('The timer is past due!')
+        
+    # GET CSV FROM BLOB STORAGE
+    blob_service_client = BlobServiceClient.from_connection_string(os.getenv("AZURE_STORAGE_CONNECTION_STRING"))
+    container_name = os.getenv("BLOB_CONTAINER_NAME")
+    blob_name = os.getenv("FILE_NAME")
+    blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
+    download_stream = blob_client.download_blob()
+    blob_data = download_stream.readall()
+    blob_data = blob_data.decode('utf-8')
+    blob_data = blob_data.split('\n')
+    blob_data = list(csv.reader(blob_data))
+    blob_data = blob_data[1:]
+    print(blob_data)
 
     logging.info('Python timer trigger function executed.')

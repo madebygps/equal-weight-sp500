@@ -35,7 +35,7 @@ container = database.get_container_client(os.getenv("COSMOS_DB_CONTAINER"))
 
 
 tickers = []
-with open('tickers.csv', 'r') as file:
+with open('../tickers.csv', 'r') as file:
     reader = csv.reader(file)
     for ticker in reader:
         ticker = str(ticker).replace("'", "").replace("[", "").replace("]", "")
